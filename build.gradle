@@ -27,6 +27,16 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'org.elasticsearch:elasticsearch-storm:6.4.2'
+    compile 'org.apache.httpcomponents:httpasyncclient'
+    compile 'org.apache.httpcomponents:httpcore-nio'
+    compile 'org.apache.httpcomponents:httpclient'
+    compile 'org.apache.httpcomponents:httpcore'
+    compile 'commons-codec:commons-codec'
+    compile 'commons-logging:commons-logging'
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version: '6.4.2'
+    compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.4.2'
+    compile 'org.elasticsearch.client:elasticsearch-rest-client-sniffer:6.4.2'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

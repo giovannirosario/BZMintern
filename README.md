@@ -7,13 +7,16 @@ Utilizei as ferramentas
 JQ https://stedolan.github.io/jq/	e
 JSON PY ES https://github.com/xros/jsonpyes 
 
-Passos 
+Passos
 No sublime, retirei a anotação do array e as virgulas que separavam cada documento.
 No terminal
 (cat data.json | jq -c .) > file
 para desfazer o 'pretty' e 
 jsonpyes --data file --bulk http://localhost:9200 --import --index post_test --type post --check
 para deixar no padrão da API bulk e upar no ES.
+
+Após perceber que o mapping criado automaticamente havia mapeado o campo 'date' como "text", recriei o index mapeando 'date' para long.
+
 
 
 
