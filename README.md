@@ -17,7 +17,11 @@ para deixar no padrão da API bulk e upar no ES.
 
 Após perceber que o mapping criado automaticamente havia mapeado o campo 'date' como "text", recriei o index mapeando 'date' para long.
 
+Foi utilizada a API Java High Level REST Client fornecida por www.elastic.co e documentação completa no link:
+https://snapshots.elastic.co/javadoc/org/elasticsearch/client/elasticsearch-rest-high-level-client/7.0.0-alpha1-SNAPSHOT/index.html
 
+Utilizando essa API, foi implementado uma classe DAO (Data Acess Object) que constroi a query, executa uma search request no banco ElasticSearch e então retorna um objeto SearchHits, contendo todos os posts, comentários e replies com o nome de usuário e rede social fornecidos.
 
+No controller da minha API, foi implementado uma rota GET /bzm_api/getPosts que recebe obrigatoriamente os QueryParams 'username' e 'social_net' e os parametros opcionais 'order' e 'limit'.
 
 

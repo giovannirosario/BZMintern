@@ -32,49 +32,27 @@ public class DAO implements DAOInterface {
 						new HttpHost("localhost", 9201, "http")));
 	}
 	
-	public SearchHits getPosts(String user, String social_net) {
-		/*Request request = new Request(
-				"POST",
-				"/posts_bzm/_search");
-		request.addParameter("pretty", "true");
-		request.setJsonEntity(
-				"{\n" + 
-				"  \"query\": {\n" + 
-				"  	\"bool\": {\n" + 
-				"  		\"must\": [\n" + 
-				"  			{\"match\": { \"author.name\": \""+ user + "\"}},\n" + 
-				"    		{\"match\": { \"service\" : \""+ social_net + "\"}}\n" + 
-				"  		]\n" + 
-				"    }	\n" + 
-				"  },\n" + 
-				"  \"sort\": [\n" + 
-				"  	{ \"date\" : {\"order\" : \"asc\"}}\n" + 
-				"	]\n" + 
-				"}\n" + 
-				""	
-		);
-		
-		Response response = null;
-		try {
-			response = client.performRequest(request);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-		HttpHost host = response.getHost();
-		int statusCode = response.getStatusLine().getStatusCode();
-		return response;*/
-		
-		
+	public SearchHits getPosts(String user, String social_net, String order, Integer limit) {	
 		SearchRequest searchRequest = new SearchRequest("posts_bzm");
 		searchRequest.types("posts");
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		
 		BoolQueryBuilder bool = new BoolQueryBuilder().must(new MatchQueryBuilder("author.name", user)).must(new MatchQueryBuilder("service", social_net));
-		searchSourceBuilder.query(bool); 
-		searchSourceBuilder.sort(new FieldSortBuilder("date").order(SortOrder.ASC));
+		searchSourceBuilder.query(bool);
+		
+		if (order == "DESC")
+			searchSourceBuilder.sort(new FieldSortBuilder("date").order(SortOrder.DESC));
+		else
+			searchSourceBuilder.sort(new FieldSortBuilder("date").order(SortOrder.ASC));
+		
+		if (limit != -1)
+			searchSourceBuilder.size(limit);
+		else 
+			searchSourceBuilder.size(500);
+
 		
 		searchRequest.source(searchSourceBuilder); 
+		
 		
 		SearchResponse searchResponse = null;
 		try {
@@ -83,11 +61,8 @@ public class DAO implements DAOInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-		
 			SearchHits hits = searchResponse.getHits(); 
-			
 			return hits;
-		
 		}
 		
 	}

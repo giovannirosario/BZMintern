@@ -32,6 +32,8 @@ dependencies {
     compile 'org.apache.httpcomponents:httpcore-nio'
     compile 'org.apache.httpcomponents:httpclient'
     compile 'org.apache.httpcomponents:httpcore'
+    compile "org.apache.logging.log4j:log4j-api:2.7"
+	compile "org.apache.logging.log4j:log4j-core:2.7"
     compile 'commons-codec:commons-codec'
     compile 'commons-logging:commons-logging'
     compile group: 'org.elasticsearch', name: 'elasticsearch', version: '6.4.2'
