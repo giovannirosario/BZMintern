@@ -40,15 +40,15 @@ public class DAO implements DAOInterface {
 		BoolQueryBuilder bool = new BoolQueryBuilder().must(new MatchQueryBuilder("author.name", user)).must(new MatchQueryBuilder("service", social_net));
 		searchSourceBuilder.query(bool);
 		
-		if (order == "DESC")
+		if (order.equals("DESC"))
 			searchSourceBuilder.sort(new FieldSortBuilder("date").order(SortOrder.DESC));
-		else
+		else if (order.equals("ASC"))
 			searchSourceBuilder.sort(new FieldSortBuilder("date").order(SortOrder.ASC));
 		
 		if (limit != -1)
 			searchSourceBuilder.size(limit);
 		else 
-			searchSourceBuilder.size(500);
+			searchSourceBuilder.size(1000);
 
 		
 		searchRequest.source(searchSourceBuilder); 
